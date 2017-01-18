@@ -31,52 +31,40 @@ import io.realm.RealmResults;
  */
 
 public class queryData {
+
     queryData(Context cx, LinearLayout ly, Realm realm) {
         // 建立查詢
-        RealmQuery<Dog> query = realm.where(Dog.class);
+        RealmQuery<Placemark> query = realm.where(Placemark.class);
         printdata(cx,ly,realm,query);
     }
+
     queryData(Context cx, LinearLayout ly, Realm realm,String attr,int num) {
         // 建立查詢
-        RealmQuery<Dog> query = realm.where(Dog.class);
+        RealmQuery<Placemark> query = realm.where(Placemark.class);
         // 查找color 編號為2 者
         query.equalTo(attr, num);
         // 印出資料
         printdata(cx,ly,realm,query);
     }
 
+    queryData(Context cx, LinearLayout ly, Realm realm,String attr,String str) {
+        // 建立查詢
+        RealmQuery<Placemark> query = realm.where(Placemark.class);
+        // 查找color 編號為2 者
+        query.contains(attr, str);
+        // 印出資料
+        printdata(cx,ly,realm,query);
+    }
+
     // 印出資料
-    private void printdata(Context cx, LinearLayout ly, Realm realm,RealmQuery<Dog> query){
+    private void printdata(Context cx, LinearLayout ly, Realm realm,RealmQuery<Placemark> query){
         ly.removeAllViews();
-        RealmResults<Dog> result = query.findAll();
-        for (Dog d : result) {
-            showText(cx,ly,"Dog ID: " + d.getName() + "\tAge: " + d.getAge() + "\tDog Color: " + getColor_str(d.getColor()));
+        RealmResults<Placemark> result = query.findAll();
+        for (Placemark d : result) {
+            showText(cx,ly,"Name: " + d.getName() + "\tuser: " + d.getAccount() + "\tpw: " + d.getPassword());
         }
     }
 
-
-    // 回傳 Dog color str
-    private String getColor_str(int color){
-        String str="";
-        switch (color){
-            case 1:
-                str="black";
-                break;
-            case 2:
-                str="yellow";
-                break;
-            case 3:
-                str="white";
-                break;
-            case 4:
-                str="gray";
-                break;
-            case 5:
-                str="brown";
-                break;
-        }
-        return str;
-    }
 
     public void showText(Context cx, LinearLayout ly, String txt) {
         Log.d("MYLOG", txt);

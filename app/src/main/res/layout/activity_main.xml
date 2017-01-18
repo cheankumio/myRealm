@@ -46,6 +46,49 @@
                 android:id="@+id/button"
                 android:layout_weight="0"
                 android:onClick="searchbtn" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText3"
+                android:hint="Name"
+                android:layout_weight=".3" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText4"
+                android:layout_weight=".3"
+                android:hint="Account" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText5"
+                android:layout_weight=".3"
+                android:hint="Password" />
+
+            <Button
+                android:text="Insert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:onClick="insertdata"
+                android:layout_weight="0" />
+
         </LinearLayout>
 
         <ScrollView
