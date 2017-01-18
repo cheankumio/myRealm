@@ -1,5 +1,6 @@
 package com.example.test.myrealm;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import io.realm.internal.IOException;
 public class MainActivity extends AppCompatActivity {
     private Realm realm;
     private LinearLayout rootLayout=null;
+    SharedPreferences sb;
     Placemark placemark_adapter;
 
     // 設定Module 欄位 ( 資料格式 )
@@ -94,22 +96,8 @@ public class MainActivity extends AppCompatActivity {
 //    }
 //
 //
-    public void insertdata(View view) {
-        EditText ed1 = (EditText)findViewById(R.id.editText3);
-        EditText ed2 = (EditText)findViewById(R.id.editText4);
-        EditText ed3 = (EditText)findViewById(R.id.editText5);
-        String str1 = fs("Name")+":"+fs(ed1.getText().toString())+",";
-        String str2 = fs("Account")+":"+fs(ed2.getText().toString())+",";
-        String str3 = fs("Password")+":"+fs(ed3.getText().toString());
-        final String json = "{"+str1+str2+str3+"}";
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.createObjectFromJson(Placemark.class, json);
-                Log.d("MYLOG","JSON: "+json);
-            }
-        });
-    }
+
+
 
     // format text to "text"
     private String fs(String str){
@@ -148,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
+/*
+*
+*          Button 按鈕 功能
+*      searchbtn  -> 搜尋資料
+*      insertdata -> 插入資料
+ */
     public void searchbtn(View view){
         EditText editText1 = (EditText)findViewById(R.id.editText);
         EditText editText2 = (EditText)findViewById(R.id.editText2);
@@ -157,6 +151,26 @@ public class MainActivity extends AppCompatActivity {
         new queryData(this,rootLayout,realm,str1,str2);
     }
 
+    public void insertdata(View view) {
+        EditText ed1 = (EditText)findViewById(R.id.editText3);
+        EditText ed2 = (EditText)findViewById(R.id.editText4);
+        EditText ed3 = (EditText)findViewById(R.id.editText5);
+        String str1 = fs("Name")+":"+fs(ed1.getText().toString())+",";
+        String str2 = fs("Account")+":"+fs(ed2.getText().toString())+",";
+        String str3 = fs("Password")+":"+fs(ed3.getText().toString());
+        final String json = "{"+str1+str2+str3+"}";
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.createObjectFromJson(Placemark.class, json);
+                Log.d("MYLOG","JSON: "+json);
+            }
+        });
+        ed1.setText("");
+        ed2.setText("");
+        ed3.setText("");
+        new queryData(this,rootLayout,realm);
+    }
 
     @Override
     protected void onDestroy() {

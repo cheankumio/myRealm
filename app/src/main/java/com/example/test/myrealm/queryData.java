@@ -35,16 +35,7 @@ public class queryData {
     queryData(Context cx, LinearLayout ly, Realm realm) {
         // 建立查詢
         RealmQuery<Placemark> query = realm.where(Placemark.class);
-        printdata(cx,ly,realm,query);
-    }
-
-    queryData(Context cx, LinearLayout ly, Realm realm,String attr,int num) {
-        // 建立查詢
-        RealmQuery<Placemark> query = realm.where(Placemark.class);
-        // 查找color 編號為2 者
-        query.equalTo(attr, num);
-        // 印出資料
-        printdata(cx,ly,realm,query);
+        printdata(cx,ly,query);
     }
 
     queryData(Context cx, LinearLayout ly, Realm realm,String attr,String str) {
@@ -53,11 +44,11 @@ public class queryData {
         // 查找color 編號為2 者
         query.contains(attr, str);
         // 印出資料
-        printdata(cx,ly,realm,query);
+        printdata(cx,ly,query);
     }
 
     // 印出資料
-    private void printdata(Context cx, LinearLayout ly, Realm realm,RealmQuery<Placemark> query){
+    private void printdata(Context cx, LinearLayout ly,RealmQuery<Placemark> query){
         ly.removeAllViews();
         RealmResults<Placemark> result = query.findAll();
         for (Placemark d : result) {
@@ -69,7 +60,7 @@ public class queryData {
     public void showText(Context cx, LinearLayout ly, String txt) {
         Log.d("MYLOG", txt);
         TextView tv = new TextView(cx);
-        tv.setTextSize(17f);
+        tv.setTextSize(13f);
         tv.setText(txt);
         ly.addView(tv);
     }
